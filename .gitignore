@@ -1,0 +1,42 @@
+# --- segredos: NUNCA versionar a chave de API real ---
+.env
+
+# --- artefatos de empacotamento (PyInstaller) ---
+build/
+dist/
+*.spec
+upx/
+
+# --- copias antigas / redundantes ---
+Códigos projeto RPA/
+
+# --- saidas geradas pelos scripts (planilhas, graficos, camadas) ---
+*.xlsx
+*.png
+*.geojson
+resultado_estradas/
+selftest.log
+
+# manter os exemplos versionados mesmo com as regras acima
+!exemplos/**
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.mypy_cache/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- config local do Claude Code (pessoal, por maquina) ---
+.claude/settings.local.json
+
+# --- editores / SO ---
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

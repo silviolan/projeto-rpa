@@ -1,0 +1,15 @@
+# Dependencias do Projeto RPA.
+# Instale com:  pip install -r requirements.txt
+#
+# A interface (app.py) usa apenas a biblioteca padrao (tkinter), que ja vem
+# com o Python no Windows. Os pacotes abaixo sao exigidos pelos modulos de
+# calculo; cada acao so importa os que precisa.
+
+requests        # chamadas HTTP (OpenRouteService, Overpass, OpenTopoData, STAC)
+pandas          # leitura do CSV e escrita das planilhas
+openpyxl        # engine de escrita dos arquivos .xlsx
+pyproj          # projecoes/distancias geodesicas
+matplotlib      # graficos .png
+numpy           # calculo do NDVI (acoes VEGETACAO / VALIDA MATA)
+rasterio        # leitura das cenas de satelite (acoes VEGETACAO / VALIDA MATA)
+shapely         # geometria das zonas de mata (acoes VEGETACAO / VALIDA MATA)
