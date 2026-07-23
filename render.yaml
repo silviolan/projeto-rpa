@@ -1,0 +1,28 @@
+# Configuracao de deploy no Render (https://render.com) - plano gratuito.
+#
+# Como usar:
+#   1. crie uma conta no Render com o seu login do GitHub;
+#   2. New +  ->  Blueprint  ->  selecione o repositorio projeto-rpa;
+#      o Render le este arquivo e ja monta o servico.
+#   3. em Environment, preencha ORS_API_KEY com a sua chave (so a acao URBANO
+#      precisa dela; as demais rodam sem chave).
+#
+# Observacoes:
+#   - o plano free hiberna apos ~15 min sem uso (a 1a visita seguinte demora
+#     ~30-60s para acordar) e tem ~512 MB de RAM: as acoes VEGETACAO/VALIDA MATA
+#     (imagem de satelite + rasterio) podem estourar essa memoria no free.
+#   - todo "git push" na branch main reimplanta o servico automaticamente.
+
+services:
+  - type: web
+    name: projeto-rpa
+    runtime: python
+    plan: free
+    branch: main
+    buildCommand: pip install -r requirements.txt
+    startCommand: python web.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      - key: ORS_API_KEY
+        sync: false          # preenchido manualmente no painel (nao versionado)

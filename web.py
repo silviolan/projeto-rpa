@@ -36,7 +36,14 @@ os.environ.setdefault("MPLBACKEND", "Agg")
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PASTA_SAIDAS = os.path.join(BASE_DIR, "saidas_web")
-HOST, PORTA = "127.0.0.1", 8000
+
+# Local x nuvem: provedores (Render, Railway...) injetam a porta na variavel de
+# ambiente PORT. Quando ela existe, estamos na nuvem: escutamos em 0.0.0.0 (para
+# o provedor conseguir expor o servico) e NAO abrimos o navegador. Sem PORT,
+# rodamos local em 127.0.0.1:8000 e abrimos a pagina sozinho.
+NA_NUVEM = bool(os.environ.get("PORT"))
+PORTA = int(os.environ.get("PORT", "8000"))
+HOST = "0.0.0.0" if NA_NUVEM else "127.0.0.1"
 
 
 # ---------- .env simples (CHAVE=valor) ----------
@@ -395,14 +402,17 @@ def main():
     carrega_env()
     os.makedirs(PASTA_SAIDAS, exist_ok=True)
     servidor = ThreadingHTTPServer((HOST, PORTA), Handler)
-    url = f"http://{HOST}:{PORTA}"
     print("=" * 56)
     print("  PROJETO RPA - versao web")
     print("=" * 56)
-    print(f"  Abra no navegador:  {url}")
-    print("  (para encerrar, feche esta janela ou pressione Ctrl+C)")
+    if NA_NUVEM:
+        print(f"  Servidor no ar (nuvem), escutando em {HOST}:{PORTA}.")
+    else:
+        url = f"http://127.0.0.1:{PORTA}"
+        print(f"  Abra no navegador:  {url}")
+        print("  (para encerrar, feche esta janela ou pressione Ctrl+C)")
+        threading.Timer(0.8, lambda: webbrowser.open(url)).start()
     print("-" * 56)
-    threading.Timer(0.8, lambda: webbrowser.open(url)).start()
     try:
         servidor.serve_forever()
     except KeyboardInterrupt:
