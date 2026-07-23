@@ -15,6 +15,7 @@ Códigos projeto RPA/
 *.png
 *.geojson
 resultado_estradas/
+saidas_web/
 selftest.log
 
 # manter os exemplos versionados mesmo com as regras acima

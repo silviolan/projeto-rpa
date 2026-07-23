@@ -27,6 +27,24 @@ para abrir a planilha, o gráfico e a pasta de saída. Antes de rodar, ela faz u
 pré-checagem (arquivo, pacotes e chave de API) e explica o que falta, em vez de
 estourar um erro técnico.
 
+## Interface no navegador (versão web)
+
+Mesma lógica, mas exibida no navegador. Sobe um servidor **local** (só a
+biblioteca padrão do Python — não instala nada) e abre a página sozinho:
+
+```bash
+python web.py
+```
+
+A página abre em `http://127.0.0.1:8000`. Você escolhe o `.csv`, clica na ação
+e o gráfico + os botões de download aparecem na própria página. Os arquivos
+gerados ficam em `saidas_web/<data-hora>/`.
+
+> Importante: o cálculo roda em Python no seu computador. Uma página estática
+> (por exemplo, GitHub Pages) **não** consegue fazer os cálculos sozinha — ela
+> só mostraria a interface. Para calcular de verdade é preciso rodar o `web.py`
+> localmente, ou publicar o `web.py` em um serviço de hospedagem Python.
+
 ## Uso por linha de comando
 
 Além da GUI, há dois pontos de entrada em modo texto:
