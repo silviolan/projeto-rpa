@@ -335,10 +335,13 @@ def suaviza_serie(y, janela=JANELA_SUAVIZACAO):
     """
     if not SUAVIZAR_GRAFICO or janela <= 1 or len(y) < 3:
         return y
+    # copy=True garante um array GRAVAVEL: em pandas/numpy recentes o
+    # .to_numpy() pode devolver uma view somente-leitura, e ai a ancoragem das
+    # pontas abaixo estoura "assignment destination is read-only".
     s = (pd.Series(y)
          .rolling(janela, center=True, min_periods=1)
          .mean()
-         .to_numpy())
+         .to_numpy(copy=True))
     # ancora as pontas no valor real -> inicio/fim do grafico = cota verdadeira
     s[0], s[-1] = y[0], y[-1]
     return s
